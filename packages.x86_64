@@ -57,6 +57,7 @@ livecd-sounds
 lsscsi
 lvm2
 lynx
+ly
 man-db
 man-pages
 mc
@@ -128,3 +129,4 @@ zsh
 neovim
 base-devel
 git
+fastfetch

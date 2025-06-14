@@ -1,1 +1,8 @@
-../usr/lib/os-release
+NAME="Devos"
+PRETTY_NAME="Devos"
+ID=Devos
+BUILD_ID=rolling
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://Devoslinux.org/"
+BUG_REPORT_URL="https://github.com/abdellatif-temsamani/devos"
+LOGO=Devoslinux-logo
