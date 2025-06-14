@@ -59,6 +59,15 @@ lvm2
 lynx
 ly
 i3-wm
+rofi
+xorg-server
+polybar
+xorg-xinit
+xterm
+kitty
+feh
+ttf-dejavu
+alacritty
 man-db
 man-pages
 mc

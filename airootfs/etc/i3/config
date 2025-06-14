@@ -1,0 +1,293 @@
+# TODO: include <pattern>
+set $mod Mod4
+set $alt Mod1
+
+set $ws1  "1:Terminals"
+set $ws2  "2:browsers"
+set $ws3  "3:File Managers"
+set $ws4  "4:Projects"
+set $ws5  "5:Settings"
+set $ws6  "6:Text editing"
+set $ws7  "7:VMS"
+set $ws8  "8:Emails"
+set $ws9  "9:Media"
+set $ws10 "10:Communication"
+
+
+floating_modifier $alt
+tiling_drag modifier titlebar
+popup_during_fullscreen smart
+
+# vars
+set $terminal kitty --class "Kitty"
+set $terminal_alt tmuxmanager
+set $terminal_float kitty --class "Float"
+set $browser brave
+set $browser_alt firefox-developer-edition
+set $fm pcmanfm
+
+# font
+font xft:AnonymicePro Nerd Font 13ppt
+
+# execs
+exec --no-startup-id /etc/i3/polybar.sh
+exec --no-startup-id xrdb -merge /etc/i3/.Xresources
+exec_always --no-startup-id feh --bg-fill /usr/share/wallpapers/bsod.png
+exec_always --no-startup-id dunst
+
+# floating modifier
+floating_modifier $mod
+
+for_window [class=".*"] border pixel 2
+smart_borders on
+
+# START_KEYS
+# x window stuff
+bindsym XF86MonBrightnessDown exec xbacklight -10
+bindsym XF86MonBrightnessUp   exec xbacklight +10
+bindsym XF86Display           exec arandr
+bindsym XF86AudioMute         exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioPlay        exec playerctl play-pause
+bindsym XF86AudioStop        exec playerctl stop
+bindsym XF86AudioNext        exec playerctl next
+bindsym XF86AudioPrev        exec playerctl previous
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# help command
+bindsym $mod+Return exec $terminal_float -e bat --highlight-line 39:217 ~/.config/i3/config
+
+# basic
+bindsym $mod+t exec $terminal
+bindsym $mod+Control+t exec $terminal_float -e tudu
+bindsym $mod+Shift+n exec $terminal_alt
+bindsym $mod+Control+n exec $terminal_alt -d
+bindsym $alt+Control+t exec $terminal_float
+bindsym $mod+Control+b exec $browser
+bindsym $mod+Shift+b exec $browser_alt
+bindsym $mod+l exec lockme
+bindsym $mod+Control+r restart
+bindsym $mod+Shift+r exec i3-msg reload && i3-msg restart
+bindsym $mod+w kill
+bindsym $mod+i sticky toggle
+
+# change focus
+bindsym $mod+Control+h focus left
+bindsym $mod+Control+j focus down
+bindsym $mod+Control+k focus up
+bindsym $mod+Control+l focus right
+
+# change focus output
+bindsym $mod+Shift+h focus output left
+bindsym $mod+Shift+l focus output right
+bindsym $mod+Shift+k focus output up
+bindsym $mod+Shift+j focus output down
+
+# move workspace to left and right monitors
+bindsym $mod+Control+Shift+h workspace prev
+bindsym $mod+Control+Shift+l workspace next
+
+# move window
+bindsym $alt+Control+h move left
+bindsym $alt+Control+j move down
+bindsym $alt+Control+k move up
+bindsym $alt+Control+l move right
+
+# move window to another workspace
+bindsym $alt+Shift+h move window to output left
+bindsym $alt+Shift+l move window to output right
+bindsym $alt+Shift+k move window to output up
+bindsym $alt+Shift+j move window to output down
+
+# move workspace to left and right monitors
+bindsym $alt+Control+Shift+h move workspace to output left
+bindsym $alt+Control+Shift+l move workspace to output right
+bindsym $alt+Control+Shift+k move workspace to output up
+bindsym $alt+Control+Shift+j move workspace to output down
+
+
+# rofi
+bindsym $mod+Control+d  exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+d          exec --no-startup-id rofi -show run
+bindsym $mod+Tab        exec --no-startup-id rofi -show window
+bindsym $mod+Shift+d    exec --no-startup-id passrofi
+bindsym $mod+p          exec arandr
+bindsym $mod+Shift+q    exec --no-startup-id quitwm i3
+
+# normal scripts
+bindsym $mod+Control+c      exec $terminal --class yazi -e yazi ~/.config/i3
+bindsym $mod+Control+s      exec $terminal --class yazi -e yazi ~/screenshots
+bindsym $mod+Control+f      exec $terminal --class yazi -e yazi ~
+bindsym $mod+Shift+s        exec maimpick
+bindsym $mod+s              exec maimpick
+bindsym $mod+Shift+f        exec $fm
+bindsym $mod+Shift+c        exec speedcrunch
+bindsym $mod+Control+Return exec ~/.config/i3/polybar.sh
+
+# normal software
+bindsym $mod+a         exec $terminal --class "wiremix" -e wiremix
+bindsym $mod+Control+a exec qpwgraph
+bindsym $mod+Control+v exec virt-manager
+
+#vertical and horizontal split
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# toggle fullscreen
+bindsym $mod+f fullscreen toggle
+
+# change layouts
+bindsym $mod+z layout stacking
+bindsym $mod+x layout tabbed
+bindsym $mod+c layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# scratchpad toggle
+bindsym $alt+space move scratchpad
+bindsym $alt+Control+space scratchpad show
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    bindsym l resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym h resize grow width 10 px or 10 ppt
+
+    bindsym $mod+r mode "default"
+    bindsym $mod+g mode "gaps"
+}
+
+# resize gaps between windows
+mode "gaps" {
+    bindsym k gaps inner current plus 5
+    bindsym j gaps inner current minus 5
+    bindsym 0 gaps inner current set 0
+
+    bindsym Shift+k gaps inner all plus 5
+    bindsym Shift+j gaps inner all minus 5
+    bindsym Shift+0 gaps inner all set 0
+
+    bindsym l gaps outer current plus 5
+    bindsym h gaps outer current minus 5
+    bindsym 0 gaps outer current set 0
+
+    bindsym Shift+l gaps outer all plus 5
+    bindsym Shift+h gaps outer all minus 5
+    bindsym Shift+0 gaps outer all set 0
+
+    bindsym $mod+r mode "resize"
+    bindsym $mod+g mode "default"
+}
+
+# enter modes
+bindsym $mod+g mode "gaps"
+bindsym $mod+r mode "resize"
+
+# END_KEYS
+
+set_from_resource $fg  i3wm.foreground  #02050A
+set_from_resource $bg  i3wm.background  #FFFFFF
+set_from_resource $c0  i3wm.color0      #000000
+set_from_resource $c1  i3wm.color1      #FF3300
+set_from_resource $c2  i3wm.color2      #64c864
+set_from_resource $c3  i3wm.color3      #F0a000
+set_from_resource $c4  i3wm.color4      #00BFFF
+set_from_resource $c5  i3wm.color5      #A574C3
+set_from_resource $c6  i3wm.color6      #76AAAA
+set_from_resource $c7  i3wm.color7      #C8C8C8
+set_from_resource $c8  i3wm.color8      #555599
+set_from_resource $c9  i3wm.color9      #FF5531
+set_from_resource $c10 i3wm.color10     #88de88
+set_from_resource $c11 i3wm.color11     #FfDf00
+set_from_resource $c12 i3wm.color12     #87CEEB
+set_from_resource $c13 i3wm.color13     #BF9FFC
+set_from_resource $c14 i3wm.color14     #76FFFF
+set_from_resource $c15 i3wm.color15     #FFFFFF
+
+# class                 border  backgr. text indicator child_border
+client.focused          $c4     $c4    $bg   $c4       $c4
+client.unfocused        $c8     $bg    $c7   $c7       $c8
+client.focused_inactive $c0     $c0    $fg   $c4       $c0
+client.urgent           $c1     $c1    $bg   $c1       $c1
+client.placeholder      $c4     $bg    $fg   $c11      $c4
+client.background       $bg
+
+# tui apps
+
+# gui apps
+assign [class="Alacritty"]        number $ws1
+assign [class="Kitty"]            number $ws1
+assign [class="URxvt"]            number $ws1
+
+assign [class="firefox"]          number $ws2
+assign [class="Brave-browser"]    number $ws2
+
+assign [class="Pcmanfm"]          number $ws3
+assign [class="yazi"]             number $ws3
+
+assign [class="VSCodium"]         number $ws4
+assign [class="code-oss"]         number $ws4
+assign [class="Godot"]            number $ws4
+assign [class="tmuxmanager"]      number $ws4
+assign [class="StarUML"]          number $ws4
+
+assign [class="Lxappearance"]     number $ws5
+assign [class="Arandr"]           number $ws5
+assign [class="wiremix"]       number $ws5
+
+assign [class="DesktopEditors"]   number $ws6
+
+assign [class="Virt-manager"]     number $ws7
+
+assign [class="thunderbird"]      number $ws8
+
+assign [class="Spotify"]          number $ws9
+assign [class="Gimp"]             number $ws9
+assign [class="kdenlive"]         number $ws9
+assign [class="Blender"]          number $ws9
+assign [class="obs"]              number $ws9
+
+assign [class="discord"]          number $ws10
+
+assign [class="Signal"]           number $ws10
+assign [class="TelegramDesktop"]  number $ws10
+
+# title
+for_window [title="Picture-in-Picture"] sticky enable
+
+# class
+for_window [class="SpeedCrunch"]    sticky enable
+for_window [class="SpeedCrunch"]    floating enable
+for_window [class="mpv"]            sticky enable
+for_window [class="Pinentry-gtk-2"] sticky enable
+
+no_focus [title="Picture-in-Picture"]
