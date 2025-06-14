@@ -1,0 +1,25 @@
+# Compiled ISO and SquashFS
+*.iso
+*.img
+*.sfs
+
+# Output and working directories
+out/
+work/
+
+# Package cache
+*.pkg.tar.*
+*.sig
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*~
+
+# Editor/IDE config
+.vscode/
+.idea/
