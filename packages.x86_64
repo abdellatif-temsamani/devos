@@ -58,6 +58,7 @@ lsscsi
 lvm2
 lynx
 ly
+i3-wm
 man-db
 man-pages
 mc
@@ -130,3 +131,9 @@ neovim
 base-devel
 git
 fastfetch
+rust
+gcc
+npm
+nodejs
+python
+go

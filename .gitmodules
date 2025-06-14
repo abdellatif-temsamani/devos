@@ -1,0 +1,3 @@
+[submodule "airootfs/usr/share/nvim"]
+	path = airootfs/usr/share/nvim
+	url = git@github.com:abdellatif-temsamani/config.nvim.git
