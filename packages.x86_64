@@ -137,6 +137,7 @@ xfsprogs
 xl2tpd
 zsh
 neovim
+nerd-fonts
 base-devel
 git
 fastfetch
@@ -146,3 +147,4 @@ npm
 nodejs
 python
 go
+brightnessctl
